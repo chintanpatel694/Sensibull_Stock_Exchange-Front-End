@@ -1,0 +1,77 @@
+<div class="example-container">
+  <p>
+    <mat-toolbar color="primary">
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Sensibull</span>
+      <span class="example-spacer"></span>
+      <button mat-raised-button color="warn" mat-button (click)="openDialog()">
+        Place Order
+      </button>
+
+
+
+    </mat-toolbar>
+  </p>
+</div>
+
+<div class="container">
+  <mat-form-field appearance="standard">
+    <mat-label>Search Order</mat-label>
+    <input matInput placeholder=" " search (keyup)="applyFilter($event)" #input />
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+    <table mat-table class="mat-elevation-z8" matSort [dataSource]="dataSource">
+      <!-- Name Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> symbol </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="filled_quantity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Filled Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.filled_quantity}} </td>
+      </ng-container>
+      <ng-container matColumnDef="order_status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.order_status}} </td>
+      </ng-container>
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Action">
+
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let row">
+          <a matTooltip="Only open orders can be modified" [matTooltipDisabled]="!row.hideControls"
+            aria-label="Button that shows a red tooltip" matTooltipClass="example-tooltip-red">
+            <button mat-icon-button [disabled]="row.hideControls" (click)="editOrder(row)" color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </a>
+          <a matTooltip="Only open orders can be cancelled." [matTooltipDisabled]="!row.hideControls"
+            aria-label="Button that shows a red tooltip" matTooltipClass="example-tooltip-red">
+            <button mat-icon-button [disabled]="row.hideControls" (click)="cancleOrder(row)" color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayColumn"></tr>
+
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="4"> The filter does not match any orders in the data for this {{input.value}}
+        </td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[7,15,25,100]" aria-label="Select Page Of orders"></mat-paginator>
+
+
+  </div>
+</div>

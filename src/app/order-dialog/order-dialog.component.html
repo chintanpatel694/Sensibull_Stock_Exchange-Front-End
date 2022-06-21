@@ -1,0 +1,25 @@
+<h1 mat-dialog-title><b>Orders</b></h1>
+<div mat-dialog-content>
+    <form [formGroup]="orderForm">
+    <mat-form-field appearance="outline" >
+        <mat-label>Symbol </mat-label>
+        <mat-select formControlName="symbol" [disabled]="selectReadonly"  placeholder="Symbol">
+          <mat-option value="HDFC">HDFC</mat-option>
+          <mat-option value="SBI">SBI</mat-option>
+          <mat-option value="IDBI">IDBI</mat-option>
+          <mat-option value="AXIS">AXIS</mat-option>
+          <mat-option value="ICICI">ICICI</mat-option>  
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Quantity</mat-label>
+        <input matInput type="number" formControlName="quantity" placeholder="Quantity" required>
+        <mat-hint [align]="'end'"> Quantity should be less than 500</mat-hint>
+      </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>close</button>
+    <button mat-raised-button color="primary" (click)="addOrder()">{{actionbtn}}</button>
+
+</div>
